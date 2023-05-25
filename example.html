@@ -1,0 +1,91 @@
+<div>
+  <canvas id="intreface-chart"></canvas>
+</div>
+
+<!-- replace src with url for custom library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  window.Retool.subscribe((model) => {
+    if (!model) {
+      return
+    }
+    const { deals } = model;
+    const dataset1 = {};
+    const dataset2 = {};
+    deals.forEach(deal => {
+      if (!dataset1[deal.RESPONSIBLE]) {
+        dataset1[deal.RESPONSIBLE] = 0;
+      }
+
+      dataset1[deal.RESPONSIBLE] += parseFloat(deal.OPPORTUNITY);
+
+      if (!dataset2[deal.RESPONSIBLE]) {
+        dataset2[deal.RESPONSIBLE] = 0;
+      }
+
+      dataset2[deal.RESPONSIBLE]++;
+    });
+    for (const k in dataset1) {
+      dataset1[k] = dataset1[k] / dataset2[k];
+    }
+
+    const ctx = document.getElementById('intreface-chart');
+    // how do I define a chart class inside my library that is accessible from here
+    new Chart(ctx, {
+      type: 'scatter',
+      data: {
+        labels: [...Object.keys(dataset1)],
+        datasets: [
+          {
+            type: 'bar',
+            label: 'Average deal price',
+            data: [...Object.values(dataset1)],
+            borderWidth: 1,
+            yAxisID: 'y1',
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 205, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(201, 203, 207, 0.2)'
+            ],
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y1: {
+            beginAtZero: true,
+            ticks: {
+              callback: (value) => {
+                return '$' + value;
+              }
+            }
+          },
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                let label = context.dataset.label || '';
+
+                if (label) {
+                  label += ': ';
+                }
+
+                if (context.parsed.y !== null) {
+                  label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                }
+
+                return label;
+              }
+            }
+          }
+        }
+      }
+    });
+  })
+</script>

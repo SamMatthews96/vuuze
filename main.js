@@ -5,4 +5,6 @@ const Intreface = {
     barChart
 }
 
+console.log('loaded')
+
 export default Intreface
