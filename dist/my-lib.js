@@ -9057,7 +9057,7 @@ function wh(i, t) {
   let { type: e, data: s, options: n, plugins: o } = t;
   return n === void 0 ? n = {
     maintainAspectRatio: !1
-  } : n.maintainAspectRatio === void 0 && (n.maintainAspectRatio = !1), console.log(t), new gt(
+  } : n.maintainAspectRatio === void 0 && (n.maintainAspectRatio = !1), new gt(
     i,
     { type: e, data: s, options: n, plugins: o }
   );
