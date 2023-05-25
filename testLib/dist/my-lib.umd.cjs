@@ -1,1 +1,1 @@
-(function(e,i){typeof exports=="object"&&typeof module<"u"?i(exports):typeof define=="function"&&define.amd?define(["exports"],i):(e=typeof globalThis<"u"?globalThis:e||self,i(e.MyLib={}))})(this,function(e){"use strict";function i(){console.log("this lib is working")}e.log=i,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})});
+(function(n){typeof define=="function"&&define.amd?define(n):n()})(function(){"use strict";console.log("start")});
