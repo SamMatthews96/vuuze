@@ -13,7 +13,7 @@ export default function (parent, config) {
     } else if (options.maintainAspectRatio === undefined){
         options.maintainAspectRatio = false;
     }
-
+    console.log(config)
     const newChart = new Chart(
         parent,
         { type, data, options, plugins }
