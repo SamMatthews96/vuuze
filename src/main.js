@@ -1,9 +1,7 @@
 
 import {default as barChart} from './modules/barChart.js'
 
-const Intreface = {
+export default {
     barChart
 }
-
-console.log('loaded')
 
