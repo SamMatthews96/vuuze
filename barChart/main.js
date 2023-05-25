@@ -7,4 +7,3 @@ const Intreface = {
 
 console.log('loaded')
 
-export default Intreface
