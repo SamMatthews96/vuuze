@@ -8,55 +8,45 @@
   <title>Vite App</title>
 </head>
 
-<body>
-  <button>update</button>
-  <div id="container">
-    <canvas id="app"></canvas>
-  </div>
-  
+<body></body>
 
-  <script type="module">
-    import { default as Intreface } from './src/main.js'
-    const ctx = document.getElementById('app')
+<script type="module">
+  import { default as Intreface } from './src/main.js'
 
-    /** 
-     * options
-     */
-    const dataset1 = {
-      "Jan": 1249.1666666666667,
-      "Feb": 1864.2250000000001,
-      "March": 3959.100000000001
+  const dataset1 = {
+    "Jan": 1249.1666666666667,
+    "Feb": 1864.2250000000001,
+    "March": 3959.100000000001
+  }
+
+  const dataset2 = {
+    "Jan": 100,
+    "Feb": 400,
+    "March": 600
+  }
+
+  const labels = Object.keys(dataset1)
+
+  Intreface.barChart({
+    data: {
+      labels,
+      datasets: [
+        {
+          type: 'bar',
+          borderWidth: 1,
+          label: 'One',
+          data: [...Object.values(dataset1)]
+        }, {
+          type: 'bar',
+          label: 'Two',
+          data: [...Object.values(dataset2)],
+          borderWidth: 1,
+        }
+      ]
     }
-
-    const dataset2 = {
-      "Jan": 100,
-      "Feb": 400,
-      "March": 600
-    }
-
-    const labels = Object.keys(dataset1)
-
-    new Intreface.barChart(ctx, {
-      data: {
-        labels,
-        datasets: [
-          {
-            type: 'bar',
-            label: 'One',
-            data: [...Object.values(dataset1)],
-            borderWidth: 1,
-          }, {
-            type: 'bar',
-            label: 'Two',
-            data: [...Object.values(dataset2)],
-            borderWidth: 1,
-          }
-        ]
-      }
-    })
+  })
 
 
-  </script>
-</body>
+</script>
 
 </html>
