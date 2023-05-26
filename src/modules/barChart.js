@@ -2,21 +2,35 @@ import { Chart, registerables } from 'chart.js'
 
 Chart.register(...registerables)
 
-export default function (parent, config) {
-    let { type, data, options, plugins } = config
+let currentChart = null
 
-    //makes chart scale vertically to remove whitespace
-    if (options === undefined){
-        options = {
-            maintainAspectRatio: false
-        }
-    } else if (options.maintainAspectRatio === undefined){
-        options.maintainAspectRatio = false;
+export default function (parent, configSrc) {
+  const config = addDefaults(configSrc)
+  createChart(parent,config)
+}
+
+function addDefaults(config){
+  const newConfig = {...config}
+  newConfig.type = 'scatter'
+
+  if (newConfig.options === undefined) {
+    newConfig.options = {
+      maintainAspectRatio: false
     }
-    const newChart = new Chart(
-        parent,
-        { type, data, options, plugins }
-    )
+  } else if (newConfig.options.maintainAspectRatio === undefined) {
+    newConfig.options.maintainAspectRatio = false;
+  }
 
-    return newChart
+  return newConfig
+}
+
+function createChart(parent,config){
+  if (currentChart) {
+    currentChart.destroy()
+  }
+
+  currentChart = new Chart(
+    parent,
+    config
+  )
 }
