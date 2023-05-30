@@ -3,6 +3,7 @@ body, html {
   overflow: hidden;
 }
 
-#chart {
+#container {
   height: calc(100% - 18px);
 }
+

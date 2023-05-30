@@ -22,11 +22,11 @@ const listen = () => {
             })
 
             !CREATED
-                ?eventEmitter.emit('intreface:retool:onCreate', { model })
-                :eventEmitter.emit('intreface:retool:onUpdate', { model })
+                ?eventEmitter.emit('intreface:retool:onCreate', model)
+                :eventEmitter.emit('intreface:retool:onUpdate', model)
             ;
 
-            eventEmitter.emit('intreface:retool:onListen', { model })
+            eventEmitter.emit('intreface:retool:onListen', model)
         });
     }
 
@@ -56,8 +56,8 @@ const onListen = (fn) => {
 export {
     onCreate,
     onUpdate,
+    onListen,
     getContext,
     setContext,
-    onListen,
     listen
 }
