@@ -10,7 +10,7 @@
 
 <body>
   <!-- <div id="container"> -->
-    <canvas id="app"></canvas>
+  <canvas id="app"></canvas>
   <!-- </div> -->
 </body>
 
@@ -56,9 +56,16 @@
     instance.update()
   });
   Retool.onUpdate(model => {
+    console.log('updated')
     instance.update();
   });
   Retool.listen();
+
+  window.onkeypress = function (event) {
+    if (event.keyCode == 32) {
+      instance.resize(instance.width + 10, instance.height + 10)
+    }
+  }
 
 </script>
 
