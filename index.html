@@ -14,7 +14,7 @@
   <!-- </div> -->
 </body>
 
-<script type='module'>
+<!-- <script type='module'>
   import Intreface from './main.js'
   const { Retool, Chart } = Intreface;
   let instance
@@ -51,21 +51,46 @@
 
   Retool.onCreate((model) => {
     console.log(model)
-    instance = Chart.Bar(model)
+    instance = Chart.Pie(model)
     instance.resize(model.scale.width, model.scale.height)
     instance.update()
   });
   Retool.onUpdate(model => {
-    console.log('updated')
     instance.update();
   });
   Retool.listen();
 
-  window.onkeypress = function (event) {
-    if (event.keyCode == 32) {
-      instance.resize(instance.width + 10, instance.height + 10)
-    }
+</script> -->
+
+<script type='module'>
+  import Intreface from './main.js'
+  const { Retool, Chart } = Intreface;
+  let instance
+
+  const model = {
+    data: [
+      { "Person": "Damian", "Jan": "5000", "Feb": "4678", "Mar": "8900", "Apl": "5810", "May": "12000", "Jun": "10987"},
+      { "Person": "Tim", "Jan": "3400", "Feb": "100000", "Mar": "5400", "Apl": "4578", "May": "5000", "Jun": "12000" },
+      { "Person": "James", "Jan": "2800", "Feb": "7000", "Mar": "12000", "Apl": "4700", "May": "1501", "Jun": "12500" }
+    ],
+    label: 'Person', // to be populated by retool input
+    value: 'Mar', // to be populated by retool input
   }
+
+
+  Retool.setContext({
+    subscribe: fn => fn(model)
+  })
+
+  Retool.onCreate((model) => {
+    console.log(model)
+    instance = Chart.Pie(model)
+    instance.update()
+  });
+  Retool.onUpdate(model => {
+    instance.update();
+  });
+  Retool.listen();
 
 </script>
 

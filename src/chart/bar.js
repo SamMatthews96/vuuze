@@ -1,7 +1,6 @@
 import Chart from 'chart.js/auto';
 import { set } from 'lodash';
 
-
 /**
  * @todo check stacked, it doesn't work
  * @todo should we wrap dataset if it's singular?
