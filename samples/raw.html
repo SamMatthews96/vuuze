@@ -1,0 +1,47 @@
+<div>
+    <canvas id="chart"></canvas>
+</div>
+
+<script type='module'>
+    import Intreface from './../dist/intreface.retool.js';
+
+    const { Retool, Chart } = Intreface;
+    const bindTo = document.getElementById('chart');
+
+    console.log({
+        Intreface
+    });
+
+    const instance = Chart.Bar(bindTo, {
+        data: {
+            Income: {
+                //color: 'rgba(255, 99, 132, 0.2)',
+                //tick: '${{value}}',
+                dataset: {"June": 100, "July": 200, "August": 300.5, "September": 251.42}
+            },
+            Outgoing: {
+                //tick: 'GBP {{value}}',
+                dataset: {"June": 32, "July": 32.4, "August": 30.5, "September": 821.43}
+            },
+            Plan: {
+                dataset: {"June": 332, "July": 312.4, "August": 330.5, "September": 321.43}
+            }
+        },
+        parameters: {
+            //stacked: true,
+            title: 'Hello World!'
+        }
+    });
+
+    // Retool.listen();
+    //
+    // Retool.onCreate(model => {
+    //     instance =  Chart.Bar(bindTo, {
+    //
+    //     })
+    // });
+    //
+    // Retool.onUpdate(model => {
+    //     instance.update();
+    // });
+</script>

@@ -1,21 +1,15 @@
-// vite.config.js
-import { resolve } from 'path'
-import { defineConfig } from 'vite'
+import { splitVendorChunkPlugin, defineConfig } from 'vite';
+import { resolve } from 'path';
 
 export default defineConfig({
-  build: {
-    lib: {
-      entry: resolve(__dirname, 'src/main.js'),
-      name: 'MyLib',
-      fileName: 'my-lib',
-    },
-    rollupOptions: {
-      external: ['vue'],
-      output: {
-        globals: {
-          vue: 'Vue',
+    build: {
+        lib: {
+            // Could also be a dictionary or array of multiple entry points
+            entry: resolve(__dirname, 'main.js'),
+            name: 'IntrefaceRetool',
+            // the proper extensions will be added
+            fileName: 'intreface.retool',
         },
-      },
     },
-  },
-})
+    plugins: [splitVendorChunkPlugin()],
+});

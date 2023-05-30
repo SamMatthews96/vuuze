@@ -1,0 +1,35 @@
+<div>
+    <canvas id="chart"></canvas>
+</div>
+
+<script type='module'>
+    import Intreface from 'https://portal.intreface.com/.cdn/retool/lib/intreface.retool.js';
+
+    const { Retool, Chart, Utility } = Intreface;
+    const bindTo = document.getElementById('chart');
+    let instance;
+
+    Retool.onListen(({ model }) => {
+        model.datasets.Income.dataset = Utility.Collection.fromCollection(model.datasets.Income.dataset, 'RESPONSIBLE', 'OPPORTUNITY');
+
+        // @todo trick not to get an error on update should be improved later
+        if(instance){
+            return;
+        }
+
+        instance = Chart.Bar(bindTo, {
+            data: {
+                ...model.datasets
+            },
+            parameters: {
+                title: 'My Lib Test'
+            }
+        });
+
+        console.log("!onCreate");
+    });
+
+    Retool.onUpdate(({ model }) => {
+        console.log("!onUpdate", instance);
+    });
+</script>

@@ -1,52 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
+<div>
+  <canvas id="chart"></canvas>
+</div>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="src/style.sass">
-  <title>Vite App</title>
-</head>
+<link rel="stylesheet" href="style.css">
 
-<body></body>
+<script type='module'>
+  import Intreface from './main.js'
+  const bindTo = document.getElementById('chart')
+  const { Retool, Chart } = Intreface;
+  let instance
 
-<script type="module">
-  import { default as Intreface } from './src/main.js'
-
-  const dataset1 = {
-    "Jan": 1249.1666666666667,
-    "Feb": 1864.2250000000001,
-    "March": 3959.100000000001
-  }
-
-  const dataset2 = {
-    "Jan": 100,
-    "Feb": 400,
-    "March": 600
-  }
-
-  const labels = Object.keys(dataset1)
-
-  Intreface.barChart({
+  const data = {
     data: {
-      labels,
-      datasets: [
-        {
-          type: 'bar',
-          borderWidth: 1,
-          label: 'One',
-          data: [...Object.values(dataset1)]
-        }, {
-          type: 'bar',
-          label: 'Two',
-          data: [...Object.values(dataset2)],
-          borderWidth: 1,
-        }
-      ]
+      Income: {
+        //color: 'rgba(255, 99, 132, 0.2)',
+        //tick: '${{value}}',
+        dataset: { "June": 100, "July": 200, "August": 300.5, "September": 251.42 }
+      },
+      Outgoing: {
+        //tick: 'GBP {{value}}',
+        dataset: { "June": 32, "July": 32.4, "August": 30.5, "September": 821.43 }
+      },
+      Plan: {
+        dataset: { "June": 332, "July": 312.4, "August": 330.5, "September": 321.43 }
+      }
+    },
+    parameters: {
+      //stacked: true,
+      title: 'Hello World!'
     }
+  }
+  Retool.setContext({
+    subscribe: model => model(data)
   })
 
+  Retool.onCreate(model => {
+    instance = Chart.Bar(data)
+  });
 
+  // Retool.onUpdate(model => {
+  //   instance.update();
+  // });
+  Retool.listen();
 </script>
-
-</html>

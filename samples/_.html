@@ -1,0 +1,113 @@
+<div>
+    <canvas id="intreface-chart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    let chart;
+    window.Retool.subscribe((model) =>  {
+        if (!model) {
+            return
+        }
+
+        if(!('dataset' in model) || !Array.isArray(model.dataset)){
+            return
+        }
+
+        const { dataset, label, fieldX, fieldY, prefixY, action } = model;
+        const source = {};
+
+        switch (action){
+            case 'sum':
+                dataset.forEach(record => {
+                    if(!source[record[fieldX]]){
+                        source[record[fieldX]] = 0;
+                    }
+
+                    source[record[fieldX]] += parseFloat(record[fieldY]);
+                });
+
+                break;
+
+            case 'count':
+                dataset.forEach(record => {
+                    if(!source[record[fieldX]]){
+                        source[record[fieldX]] = 0;
+                    }
+
+                    source[record[fieldX]]++;
+                });
+                break;
+
+            case 'avg':
+                const counter = {};
+
+                dataset.forEach(record => {
+                    if(!source[record[fieldX]]){
+                        source[record[fieldX]] = 0;
+                        counter[record[fieldX]] = 0;
+                    }
+
+                    source[record[fieldX]] += parseFloat(record[fieldY]);
+                    counter[record[fieldX]]++
+                });
+
+                for(const k in source){
+                    source[k] = source[k] / counter[k];
+                }
+
+                break;
+        }
+
+        // Update
+        if(chart){
+            chart.data.labels = [...Object.keys(source)];
+            chart.data.datasets[0].data = [...Object.values(source)];
+            chart.update();
+
+            return;
+        }
+
+        // Initialize
+
+        const ctx = document.getElementById('intreface-chart');
+
+        chart = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                labels: [...Object.keys(source)],
+                datasets: [
+                    {
+                        type: 'bar',
+                        label,
+                        data: [...Object.values(source)],
+                        borderWidth: 1,
+                        yAxisID: 'y1',
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y1: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: (value) => {
+                                return `${prefixY}${value}`;
+                            }
+                        }
+                    },
+                }
+            }
+        });
+    })
+</script>

@@ -1,18 +1,19 @@
 {
-  "name": "vuuze",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "vite": "^4.3.2"
-  },
-  "dependencies": {
-    "chart.js": "^4.3.0",
-    "sass": "^1.62.1"
-  }
+    "name": "vuuze",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "devDependencies": {
+        "vite": "^4.3.2"
+    },
+    "dependencies": {
+        "chart.js": "^4.3.0",
+        "eventemitter3": "^5.0.1",
+        "lodash": "^4.17.21"
+    }
 }

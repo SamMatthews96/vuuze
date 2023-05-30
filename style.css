@@ -3,8 +3,6 @@ body, html {
   overflow: hidden;
 }
 
-#container {
+#chart {
   height: calc(100% - 18px);
 }
-
-/*# sourceMappingURL=style.css.map */
