@@ -9,9 +9,9 @@
 </head>
 
 <body>
-  <!-- <div id="container"> -->
-  <canvas id="app"></canvas>
-  <!-- </div> -->
+  <div id="container">
+    <canvas id="app"></canvas>
+  </div>
 </body>
 
 <!-- <script type='module'>
@@ -69,7 +69,7 @@
 
   const model = {
     data: [
-      { "Person": "Damian", "Jan": "5000", "Feb": "4678", "Mar": "8900", "Apl": "5810", "May": "12000", "Jun": "10987"},
+      { "Person": "Damian", "Jan": "5000", "Feb": "4678", "Mar": "8900", "Apl": "5810", "May": "12000", "Jun": "10987" },
       { "Person": "Tim", "Jan": "3400", "Feb": "100000", "Mar": "5400", "Apl": "4578", "May": "5000", "Jun": "12000" },
       { "Person": "James", "Jan": "2800", "Feb": "7000", "Mar": "12000", "Apl": "4700", "May": "1501", "Jun": "12500" }
     ],
@@ -77,20 +77,28 @@
     value: 'Mar', // to be populated by retool input
   }
 
+  /*
+    {
+      data: {{Source.data}},
+      label: {{Label.value}},
+      value: {{Value.value}},
+    }
+  */
+
 
   Retool.setContext({
-    subscribe: fn => fn(model)
+    subscribe: fn => {
+      fn(model)
+    }
   })
 
   Retool.onCreate((model) => {
-    console.log(model)
     instance = Chart.Pie(model)
-    instance.update()
   });
+  Retool.listen();
   Retool.onUpdate(model => {
     instance.update();
   });
-  Retool.listen();
 
 </script>
 

@@ -9,7 +9,6 @@ const listen = () => {
         onCreate(() => {
             CREATED = true;
         });
-        console.log(getContext().subscribe)
         getContext().subscribe(model => {
             if (!model) {
                 return;
@@ -18,7 +17,8 @@ const listen = () => {
             console.log({
                 subscribe: 'subscribe',
                 LISTENING,
-                CREATED
+                CREATED,
+                model
             })
 
             !CREATED
