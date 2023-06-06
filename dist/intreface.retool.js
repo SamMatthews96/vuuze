@@ -12734,20 +12734,34 @@ function print() { __p += __j.call(arguments, '') }
 })(Tr, Tr.exports);
 var ma = Tr.exports;
 function XS(n) {
-  var f;
+  let t = [];
+  return n.dataSources.forEach((e) => {
+    e.data && e.label ? e.data.forEach((i) => {
+      var a;
+      const r = i[e.label];
+      delete i[e.label], (a = e.ignore) != null && a.length && e.ignore.forEach((l) => {
+        delete i[l];
+      }), t[r] = {
+        dataset: i
+      };
+    }) : Object.assign(t, e);
+  }), t;
+}
+function jS(n) {
   let { data: t, parameters: e = {} } = n;
-  const i = Object.keys(((f = Object.values(t)) == null ? void 0 : f[0].dataset) ?? []), r = Object.keys(t), a = [];
-  Object.values(t).forEach((g, p) => {
+  console.log(t);
+  let i = XS(n);
+  const r = Object.keys(Object.values(i)[0].dataset), a = Object.keys(i), l = [];
+  Object.values(i).forEach((g, p) => {
     const _ = {
       type: g.type ?? "bar",
-      label: r[p],
+      label: a[p],
       data: g.dataset,
-      //yAxisID: `y${index}`,
       borderWidth: 1
     };
-    g != null && g.color && (_.backgroundColor = g.color), a.push(_);
+    g != null && g.color && (_.backgroundColor = g.color), l.push(_);
   });
-  const l = {
+  const c = {
     responsive: !0,
     maintainAspectRatio: !1,
     plugins: {
@@ -12763,17 +12777,19 @@ function XS(n) {
         }
       }
     }
-  }, c = document.getElementById("app"), u = {
+  };
+  console.log(l);
+  const u = document.getElementById("app"), f = {
     type: "scatter",
     data: {
-      labels: i,
-      datasets: a
+      labels: r,
+      datasets: l
     },
-    options: l
+    options: c
   };
-  return new ls(c, u);
+  return new ls(u, f);
 }
-function jS(n) {
+function GS(n) {
   const t = document.getElementById("app"), e = {
     type: "pie",
     data: n,
@@ -12781,7 +12797,7 @@ function jS(n) {
   };
   return new ls(t, e);
 }
-function GS(n) {
+function KS(n) {
   var f;
   let { data: t, parameters: e = {} } = n;
   const i = Object.keys(((f = Object.values(t)) == null ? void 0 : f[0].dataset) ?? []), r = Object.keys(t), a = [];
@@ -12810,32 +12826,32 @@ function GS(n) {
   };
   return console.log(u), new ls(c, u);
 }
-const KS = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const qS = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  Bar: XS,
-  Line: GS,
-  Pie: jS
-}, Symbol.toStringTag, { value: "Module" })), qS = (n, t) => {
+  Bar: jS,
+  Line: KS,
+  Pie: GS
+}, Symbol.toStringTag, { value: "Module" })), ZS = (n, t) => {
   const e = {};
   return n.forEach((i) => {
     e[i[t]] || (e[i[t]] = 0), e[i[t]]++;
   }), Object.values(e);
-}, ZS = (n, t) => {
+}, JS = (n, t) => {
   const e = {};
   return n.forEach((i) => {
     e[i[t]] || (e[i[t]] = 0), e[i[t]] += parseFloat(i[t]);
   }), Object.values(e);
-}, JS = (n, t) => {
+}, QS = (n, t) => {
   const e = {};
   return n.forEach((i) => {
     e[i[t]] ? e[i[t]] > parseFloat(i[t]) && (e[i[t]] = parseFloat(i[t])) : e[i[t]] = parseFloat(i[t]);
   }), Object.values(e);
-}, QS = (n, t) => {
+}, tM = (n, t) => {
   const e = {};
   return n.forEach((i) => {
     e[i[t]] ? e[i[t]] < parseFloat(i[t]) && (e[i[t]] = parseFloat(i[t])) : e[i[t]] = parseFloat(i[t]);
   }), Object.values(e);
-}, tM = (n, t) => {
+}, eM = (n, t) => {
   const e = {}, i = {};
   dataset.forEach((r) => {
     e[r[t]] || (e[r[t]] = 0, i[r[t]] = 0), e[r[t]] += parseFloat(r[t]), i[r[t]]++;
@@ -12843,23 +12859,23 @@ const KS = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   for (const r in e)
     e[r] /= i[r];
   return Object.values(e);
-}, eM = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, nM = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  average: tM,
-  count: qS,
-  max: QS,
-  min: JS,
-  sum: ZS
-}, Symbol.toStringTag, { value: "Module" })), nM = (n, t, e) => {
+  average: eM,
+  count: ZS,
+  max: tM,
+  min: QS,
+  sum: JS
+}, Symbol.toStringTag, { value: "Module" })), iM = (n, t, e) => {
   const i = ma.map(n, t), r = ma.map(n, e);
   return ma.zipObject(i, r);
-}, iM = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, sM = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  fromCollection: nM
-}, Symbol.toStringTag, { value: "Module" })), sM = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  fromCollection: iM
+}, Symbol.toStringTag, { value: "Module" })), rM = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  Aggregation: eM,
-  Collection: iM
+  Aggregation: nM,
+  Collection: sM
 }, Symbol.toStringTag, { value: "Module" }));
 var Gf = { exports: {} };
 (function(n) {
@@ -12972,10 +12988,10 @@ var Gf = { exports: {} };
     return f ? (g = e ? e + f : f, this._events[g] && l(this, g)) : (this._events = new i(), this._eventsCount = 0), this;
   }, c.prototype.off = c.prototype.removeListener, c.prototype.addListener = c.prototype.on, c.prefixed = e, c.EventEmitter = c, n.exports = c;
 })(Gf);
-var rM = Gf.exports;
-const oM = /* @__PURE__ */ YS(rM), li = new oM();
+var oM = Gf.exports;
+const aM = /* @__PURE__ */ YS(oM), li = new aM();
 let Kf = null, _a = !1, ba = !1;
-const aM = () => {
+const lM = () => {
   _a || (Zf(() => {
     ba = !0;
   }), qf().subscribe((n) => {
@@ -12985,27 +13001,27 @@ const aM = () => {
       CREATED: ba
     }), ba ? li.emit("intreface:retool:onUpdate", n) : li.emit("intreface:retool:onCreate", n), li.emit("intreface:retool:onListen", n));
   })), _a = !0;
-}, qf = () => Kf ?? window.Retool, lM = (n) => {
+}, qf = () => Kf ?? window.Retool, cM = (n) => {
   Kf = n;
 }, Zf = (n) => {
   li.once("intreface:retool:onCreate", n);
-}, cM = (n) => {
-  li.on("intreface:retool:onUpdate", n);
 }, hM = (n) => {
+  li.on("intreface:retool:onUpdate", n);
+}, uM = (n) => {
   li.on("intreface:retool:onListen", n);
-}, uM = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+}, fM = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   getContext: qf,
-  listen: aM,
+  listen: lM,
   onCreate: Zf,
-  onListen: hM,
-  onUpdate: cM,
-  setContext: lM
-}, Symbol.toStringTag, { value: "Module" })), gM = {
-  Chart: KS,
-  Utility: sM,
-  Retool: uM
+  onListen: uM,
+  onUpdate: hM,
+  setContext: cM
+}, Symbol.toStringTag, { value: "Module" })), pM = {
+  Chart: qS,
+  Utility: rM,
+  Retool: fM
 };
 export {
-  gM as default
+  pM as default
 };
